@@ -89,5 +89,6 @@ int main(int argc, char** argv) {
 	}
 
 	UnloadMusicStream(music);
+	CloseAudioDevice();
 	CloseWindow();
 }
