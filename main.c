@@ -91,4 +91,6 @@ int main(int argc, char** argv) {
 	UnloadMusicStream(music);
 	CloseAudioDevice();
 	CloseWindow();
+	sem_destroy(&mutex);
+	return 0;
 }
