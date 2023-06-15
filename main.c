@@ -70,12 +70,28 @@ int main(int argc, char** argv) {
 	SetConfigFlags(FLAG_WINDOW_ALWAYS_RUN | FLAG_VSYNC_HINT);
 	InitWindow(WINDOW_SIZE, WINDOW_SIZE, "");
 	SetTargetFPS(120);
+	int monitor = GetCurrentMonitor();
+	int monitorWidth = GetMonitorWidth(monitor);
+	int monitorHeight = GetMonitorHeight(monitor);
+//	SetWindowPosition(monitorWidth - WINDOW_SIZE, 0);
 	InitAudioDevice();
 
 	Music music = LoadMusicStream(argv[1]);
 	music.looping = false;
 	AttachAudioStreamProcessor(music.stream, callback);
-	
+
+	// Initialize vertex buffer
+	for (int i = 0; i < VERTEX_BUFFER_SIZE; i++) {
+		vertexBuffer[i] = (Vector2) { WINDOW_SIZE/2, WINDOW_SIZE/2 };
+	}
+
+	// Delay 2 seconds
+	for (int i = 0; i < 150; i++) {
+		BeginDrawing();
+		ClearBackground(BLACK);
+		EndDrawing();
+	}
+
 	PlayMusicStream(music);
 
 	while (!WindowShouldClose() && IsMusicStreamPlaying(music)) {
@@ -85,12 +101,14 @@ int main(int argc, char** argv) {
 		BeginDrawing();
 		ClearBackground(WINDOW_COLOR);
 		DrawVertexBuffer();
+//		DrawFPS(10, 10);
 		EndDrawing();
 	}
 
 	UnloadMusicStream(music);
-	CloseAudioDevice();
 	CloseWindow();
+	
 	sem_destroy(&mutex);
+
 	return 0;
 }
