@@ -1,7 +1,7 @@
 // 
 // Simple vectorscope to play .wav and .mp3 files
 // 
-// 2023, Jonathan Tainer
+// Copyright (c) 2022-2023, Jonathan Tainer. Subject to the BSD 2-Clause License.
 //
 
 #include <raylib.h>
